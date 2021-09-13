@@ -1,8 +1,23 @@
-#TODO: Create a letter using starting_letter.txt 
-#for each name in invited_names.txt
-#Replace the [name] placeholder with the actual name.
-#Save the letters in the folder "ReadyToSend".
-    
-#Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
-    #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
-        #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
+TEMPLATE_PATH = "./Input/Letters/starting_letter.txt"
+NAMES_PATH = "./Input/Names/invited_names.txt"
+DESTINATION_PATH = "./Output/ReadyToSend/"
+
+# Get the letter template
+with open(TEMPLATE_PATH, mode="r") as file:
+    letter_template = file.read()
+
+# Get recipient names
+with open(NAMES_PATH, mode="r") as file:
+    recipient_names = file.readlines()
+
+for name in recipient_names:
+    # Create a letter
+    name = name.rstrip()
+    final_letter = letter_template.replace("[name]", name, 1)
+    # Save the letter to destination
+    letter_destination = DESTINATION_PATH + name + ".txt"
+    with open(letter_destination, mode="w") as file:
+        file.write(final_letter)
+
+# Exit program
+print("Your letters have been successfully written. Find them in /Output/ReadyToSend !")
